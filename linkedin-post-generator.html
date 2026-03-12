@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LinkedIn Thought Leader Generator</title>
+
+<style>
+body {
+font-family: Arial, sans-serif;
+max-width: 700px;
+margin: 60px auto;
+text-align: center;
+}
+
+button {
+padding: 10px 20px;
+margin: 5px;
+font-size: 16px;
+cursor: pointer;
+}
+
+#output {
+margin-top: 25px;
+font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>LinkedIn Thought Leader Generator</h1>
+
+<button onclick="generate()">Generate</button>
+
+<br><br>
+
+<button onclick="copyText()">Copy</button>
+
+<a id="tweet-btn" target="_blank">
+<button>Share on X</button>
+</a>
+
+<div id="output"></div>
+
+<script>
+
+const openings = [
+"Just a reminder:",
+"One thing I've learned in my career:",
+"A leadership lesson:",
+"A thought for today:",
+"Here's something many people misunderstand:",
+"Hot take:"
+];
+
+const subjects = [
+"leadership",
+"success",
+"innovation",
+"growth",
+"mindset",
+"entrepreneurship",
+"teamwork",
+"strategy"
+];
+
+const statements = [
+"isn't about titles",
+"isn't about working harder",
+"isn't about being the smartest person in the room",
+"is about consistency",
+"is about learning every day",
+"is about showing up when things are hard",
+"is about helping others succeed"
+];
+
+const endings = [
+"It's about impact.",
+"It's about people.",
+"It's about long-term thinking.",
+"It's about the journey.",
+"It's about building something meaningful.",
+"It's about creating value."
+];
+
+function random(arr){
+return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function generate(){
+
+const sentence =
+random(openings) + " " +
+random(subjects) + " " +
+random(statements) + ". " +
+random(endings);
+
+document.getElementById("output").innerText = sentence;
+
+document.getElementById("tweet-btn").href =
+"https://x.com/intent/tweet?text=" +
+encodeURIComponent(sentence);
+
+}
+
+function copyText(){
+
+const text = document.getElementById("output").innerText;
+
+navigator.clipboard.writeText(text);
+
+}
+
+</script>
+
+</body>
+</html>
