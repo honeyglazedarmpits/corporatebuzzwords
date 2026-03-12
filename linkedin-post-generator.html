@@ -6,22 +6,67 @@
 <style>
 body {
 font-family: Arial, sans-serif;
-max-width: 700px;
-margin: 60px auto;
+background-color: #f2f2f2;
 text-align: center;
+padding: 50px;
+}
+
+h1 {
+color: #333;
 }
 
 button {
+background-color: #0077b5;
+color: white;
+border: none;
 padding: 10px 20px;
-margin: 5px;
+margin: 10px;
 font-size: 16px;
 cursor: pointer;
 }
 
-#output {
-margin-top: 25px;
-font-size: 20px;
+button:hover {
+background-color: #005582;
 }
+
+#output {
+margin-top: 30px;
+font-size: 20px;
+color: #333;
+max-width: 600px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.linkedin-post {
+background: white;
+border-radius: 8px;
+padding: 20px;
+max-width: 600px;
+margin: 30px auto;
+text-align: left;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.linkedin-header {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+}
+
+.avatar {
+width: 40px;
+height: 40px;
+background: #ddd;
+border-radius: 50%;
+margin-right: 10px;
+}
+
+.linkedin-header span {
+font-size: 12px;
+color: gray;
+}  
+  
 </style>
 </head>
 
@@ -39,47 +84,79 @@ font-size: 20px;
 <button>Share on X</button>
 </a>
 
-<div id="output"></div>
+<div class="linkedin-post">
+
+<div class="linkedin-header">
+<div class="avatar"></div>
+
+<div>
+<strong>Corporate Thought Leader</strong><br>
+<span>Strategy | Leadership | Growth</span>
+</div>
+</div>
+
+<p id="output"></p>
+
+</div>
 
 <script>
 
 const openings = [
-"Just a reminder:",
-"One thing I've learned in my career:",
-"A leadership lesson:",
-"A thought for today:",
-"Here's something many people misunderstand:",
-"Hot take:"
+"Yesterday I interviewed a candidate.",
+"Last week something happened that changed my perspective.",
+"This morning I had a conversation with a junior employee.",
+"Five years ago I made a mistake I'll never forget.",
+"Earlier today a young professional asked me a question.",
+"I once met someone who completely changed how I see leadership."
 ];
 
-const subjects = [
-"leadership",
-"success",
-"innovation",
-"growth",
-"mindset",
-"entrepreneurship",
-"teamwork",
-"strategy"
+const situations = [
+"They had no experience.",
+"They arrived late to the interview.",
+"They admitted they didn't understand the role.",
+"They failed the technical test.",
+"They told me they were scared.",
+"They said they had never done this before."
 ];
 
-const statements = [
-"isn't about titles",
-"isn't about working harder",
-"isn't about being the smartest person in the room",
-"is about consistency",
-"is about learning every day",
-"is about showing up when things are hard",
-"is about helping others succeed"
+const expectations = [
+"Most managers would reject them.",
+"Most leaders would end the interview.",
+"Most companies would move on.",
+"Most people would see this as failure.",
+"Most recruiters would say no."
 ];
 
-const endings = [
-"It's about impact.",
+const twist = [
+"But I hired them.",
+"But I gave them the opportunity.",
+"But I told them to stay.",
+"But I asked them one more question.",
+"But I changed my mind."
+];
+
+const lesson = [
+"Leadership isn't about perfection.",
+"Leadership isn't about titles.",
+"Leadership isn't about resumes.",
+"Success isn't about credentials.",
+"Growth isn't about being perfect."
+];
+
+const ending = [
+"It's about potential.",
 "It's about people.",
-"It's about long-term thinking.",
-"It's about the journey.",
-"It's about building something meaningful.",
-"It's about creating value."
+"It's about believing in others.",
+"It's about giving someone a chance.",
+"It's about seeing what others miss."
+];
+
+const hashtags = [
+"#leadership #growth #mindset",
+"#careers #leadership #success",
+"#business #leadership #management",
+"#mindset #success #leadership",
+"#career #growth #leadership"
 ];
 
 function random(arr){
@@ -88,23 +165,25 @@ return arr[Math.floor(Math.random()*arr.length)];
 
 function generate(){
 
-const sentence =
-random(openings) + " " +
-random(subjects) + " " +
-random(statements) + ". " +
-random(endings);
+const post =
+random(openings) + "\n\n" +
+random(situations) + "\n\n" +
+random(expectations) + "\n\n" +
+random(twist) + "\n\n" +
+random(lesson) + "\n\n" +
+random(ending) + "\n\n" +
+random(hashtags);
 
-document.getElementById("output").innerText = sentence;
+document.getElementById("output").textContent = post;
 
 document.getElementById("tweet-btn").href =
 "https://x.com/intent/tweet?text=" +
-encodeURIComponent(sentence);
+encodeURIComponent(post);
 
 }
-
 function copyText(){
 
-const text = document.getElementById("output").innerText;
+const text = document.getElementById("output").textContent;
 
 navigator.clipboard.writeText(text);
 
