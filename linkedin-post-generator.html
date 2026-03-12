@@ -166,15 +166,15 @@ return arr[Math.floor(Math.random()*arr.length)];
 function generate(){
 
 const post =
-random(openings) + "\n\n" +
-random(situations) + "\n\n" +
-random(expectations) + "\n\n" +
-random(twist) + "\n\n" +
-random(lesson) + "\n\n" +
-random(ending) + "\n\n" +
-random(hashtags);
+  random(openings) + "<br><br>" +
+  random(situations) + "<br><br>" +
+  random(expectations) + "<br><br>" +
+  random(twist) + "<br><br>" +
+  random(lesson) + "<br><br>" +
+  random(ending) + "<br><br>" +
+  random(hashtags);
 
-document.getElementById("output").textContent = post;
+document.getElementById("output").innerHTML = post;
 
 document.getElementById("tweet-btn").href =
 "https://x.com/intent/tweet?text=" +
