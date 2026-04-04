@@ -7,191 +7,271 @@
 <meta name="robots" content="index, follow">
 <meta name="description" content="Generate hilarious corporate buzzwords and fake LinkedIn thought leader posts.">
 
-<style>
-body {
-font-family: Arial, sans-serif;
-background-color: #f2f2f2;
-text-align: center;
-padding: 50px;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f2ef;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
 
-h1 {
-color: #333;
-}
+    .post {
+      border: 1px solid #ddd;
+      padding: 15px;
+      max-width: 500px;
+      border-radius: 8px;
+      background: white;
+    }
 
-button {
-background-color: #0077b5;
-color: white;
-border: none;
-padding: 10px 20px;
-margin: 10px;
-font-size: 16px;
-cursor: pointer;
-}
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
 
-button:hover {
-background-color: #005582;
-}
+    .avatar {
+      border-radius: 50%;
+      margin-right: 10px;
+      width: 50px;
+      height: 50px;
+    }
 
-#output {
-margin-top: 30px;
-font-size: 20px;
-color: #333;
-max-width: 600px;
-margin-left: auto;
-margin-right: auto;
-}
+    .name {
+      font-weight: bold;
+    }
 
-.linkedin-post {
-background: white;
-border-radius: 8px;
-padding: 20px;
-max-width: 600px;
-margin: 30px auto;
-text-align: left;
-box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
+    .title {
+      font-size: 12px;
+      color: gray;
+    }
 
-.linkedin-header {
-display: flex;
-align-items: center;
-margin-bottom: 15px;
-}
+    #output {
+      white-space: pre-line;
+      margin-top: 10px;
+      font-size: 14px;
+    }
 
-.avatar {
-width: 40px;
-height: 40px;
-background: #ddd;
-border-radius: 50%;
-margin-right: 10px;
-}
-
-.linkedin-header span {
-font-size: 12px;
-color: gray;
-}  
-  
-</style>
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>LinkedIn Thought Leader Generator</h1>
-
-<button onclick="generate()">Generate</button>
-
-<br><br>
-
-<button onclick="copyText()">Copy</button>
-
-<a id="tweet-btn" target="_blank">
-<button>Share on X</button>
-</a>
-
-<div class="linkedin-post">
-
-<div class="linkedin-header">
-<div class="avatar"></div>
-
 <div>
-<strong>Corporate Thought Leader</strong><br>
-<span>Strategy | Leadership | Growth</span>
-</div>
-</div>
+  <div class="post">
+    <div class="header">
+      <img class="avatar" id="avatar" src="">
+      <div>
+        <div class="name" id="name"></div>
+        <div class="title" id="title"></div>
+      </div>
+    </div>
 
-<p id="output"></p>
+    <div id="output"></div>
+  </div>
 
+  <button onclick="generate()">Generate</button>
 </div>
 
 <script>
 
-const openings = [
-"Yesterday I interviewed a candidate.",
-"Last week something happened that changed my perspective.",
-"This morning I had a conversation with a junior employee.",
-"Five years ago I made a mistake I'll never forget.",
-"Earlier today a young professional asked me a question.",
-"I once met someone who completely changed how I see leadership."
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+const names = [
+"Michael Carter",
+"Sarah Johnson",
+"David Reynolds",
+"Emma Collins",
+"James Walker",
+"Daniel Foster",
+"Olivia Bennett"
+];
+
+const titles = [
+"CEO at Growthify",
+"Digital Infrastructure Continuity Orchestrator",
+"Client Happiness Evangelist & Experience Transformation Officer",
+"Thought Leader | Keynote Speaker",
+"Director of Conceptual Narrative Fabrication",
+"Helping companies scale | Ex-McKinsey",
+"Building the future of work",
+"Top Voice in Leadership",
+"Founder | Disrupting industries",
+"Executive Coach | Fortune 500 Advisor",
+"Operational Excellence Catalyst for Revenue Maximization Initiatives",
+"Chief Synergistic Workflow Optimization Strategist"
+];
+
+const questions = [
+"What's the fastest way to grow in this company?",
+"How do I become a leader?",
+"What's the secret to success?",
+"How do you handle failure?",
+"How do I stand out?",
+"What's the most important skill in business?"
+];
+
+const answers = [
+"You don't wait for opportunities. You create them.",
+"You can’t scale your career until you scale your mindfulness.",
+"You need to future-proof your skillset against AI-mediated obsolescence while staying human-centric.",
+"Titles don't make leaders. Actions do.",
+"Failure is just unrecognized growth.",
+"You don't follow the process. You improve it.",
+"You don't ask for permission. You take responsibility."
 ];
 
 const situations = [
-"They had no experience.",
-"They arrived late to the interview.",
-"They admitted they didn't understand the role.",
-"They failed the technical test.",
-"They told me they were scared.",
-"They said they had never done this before."
+"They had no relevant experience.",
+"They were visibly nervous.",
+"They didn’t have the perfect resume.",
+"They had failed in their previous role.",
+"They asked unconventional questions."
 ];
 
-const expectations = [
-"Most managers would reject them.",
-"Most leaders would end the interview.",
-"Most companies would move on.",
-"Most people would see this as failure.",
-"Most recruiters would say no."
+const absurdactions = [
+"align your emotional ROi with your professional KPIs",
+"iterate your innovation mindset at the velocity of industry transformation",
+"unlock latent human capital by reverse-engineering productivity paradigms",
+"quantum-leap your skillset alignment with next-gen value streams",
+"translate micro-insights into scalable ecosystem-wide disruptions",
+"calibrate your strategic thought resonance across all stakeholder touchpoints"
 ];
 
-const twist = [
-"But I hired them.",
-"But I gave them the opportunity.",
-"But I told them to stay.",
-"But I asked them one more question.",
-"But I changed my mind."
+const actions = [
+"promoted them",
+"gave them ownership of the project",
+"put them in charge of the team",
+"trusted them with a critical decision",
+"hired them on the spot"
 ];
 
-const lesson = [
-"Leadership isn't about perfection.",
-"Leadership isn't about titles.",
-"Leadership isn't about resumes.",
-"Success isn't about credentials.",
-"Growth isn't about being perfect."
-];
-
-const ending = [
-"It's about potential.",
-"It's about people.",
-"It's about believing in others.",
-"It's about giving someone a chance.",
-"It's about seeing what others miss."
+const lessons = [
+"leadership is about seeing potential before results.",
+"most people focus on credentials, real leaders focus on mindset.",
+"talent is overrated, attitude is everything.",
+"the best decisions don't make sense at the time.",
+"growth only happens outside your comfort zone.",
+"If you’re not leveraging gratitude as a KPI, you’re leaving impact on the table.",
+"Networking isn’t about people; it’s about energy vectors.”,
+"Failure isn’t an option. It’s a data point in your personal ROI dashboard."
 ];
 
 const hashtags = [
-"#leadership #growth #mindset",
-"#careers #leadership #success",
-"#business #leadership #management",
-"#mindset #success #leadership",
-"#career #growth #leadership"
+"#leadership #success #growth",
+"#business #mindset #innovation",
+"#careers #development #motivation",
+"#disruptiveinnovation #impactdriven #valuecreation",
+"#entrepreneurship #strategy #execution"
 ];
 
-function random(arr){
-return arr[Math.floor(Math.random()*arr.length)];
+const buzzwords = [
+"synergistic alignment",
+"paradigm shift",
+"exponential impact",
+"thought vector optimization",
+"cross-functional empathy",
+"holistic transformation",
+"strategic mindshare",
+"radical transparency",
+"innovation ecosystem",
+"emotional ROI",
+"being a challenger, not a follower"
+];
+
+const templates = [
+
+`Yesterday, someone asked me:
+
+"${random(questions)}"
+
+I paused.
+
+Not because I didn’t know the answer.
+
+But because I knew this was a moment that would define everything.
+
+So I told them:
+
+"${random(answers)}"
+
+Silence.
+
+That’s when it clicked.
+
+I've seen this pattern too many times.
+
+${random(lessons)}
+
+Let that sink in.
+
+${random(hashtags)}`,
+
+
+
+`This morning, while optimizing my personal synergy dashboard over a triple-shot oat milk latte, I realized something about the nature of "${random(buzzwords)}"
+
+"${random(answers)}"
+
+Yesterday, a candidate asked me, '"${random(questions)}".' And it hit me. Most people undersetimate the "${random(buzzwords)}".
+
+Remember: every micro-moment of insight can be converted into macro-impact initiatives if, and only if, you "${random(absurdactions)}"
+
+I encourage all future leaders to embrace radical transparency, optimize their thought vectors, and never forget that synergy is the new currency of human capital.
+
+${random(lessons)}
+
+Let that sink in.
+
+${random(hashtags)}`,
+
+     
+
+`Yesterday I interviewed a candidate.
+
+${random(situations)}
+
+Most companies would reject them.
+
+But I didn’t.
+
+Instead, I ${random(actions)}.
+
+Why?
+
+Because ${random(lessons)}
+
+Most people won’t understand this.
+
+Let that sink in.
+
+${random(hashtags)}`
+
+];
+
+function generate() {
+
+  document.getElementById("name").textContent = random(names);
+  document.getElementById("title").textContent = random(titles);
+
+  document.getElementById("avatar").src =
+    "https://i.pravatar.cc/50?img=" + Math.floor(Math.random() * 70);
+
+  const post = random(templates);
+
+  document.getElementById("output").textContent = post;
 }
 
-function generate(){
-
-const post =
-  random(openings) + "<br><br>" +
-  random(situations) + "<br><br>" +
-  random(expectations) + "<br><br>" +
-  random(twist) + "<br><br>" +
-  random(lesson) + "<br><br>" +
-  random(ending) + "<br><br>" +
-  random(hashtags);
-
-document.getElementById("output").innerHTML = post;
-
-document.getElementById("tweet-btn").href =
-"https://x.com/intent/tweet?text=" +
-encodeURIComponent(post);
-
-}
-function copyText(){
-
-const text = document.getElementById("output").textContent;
-
-navigator.clipboard.writeText(text);
-
-}
+// generate first post automatically
+generate();
 
 </script>
 
